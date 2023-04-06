@@ -14,8 +14,8 @@
 	</span>
 	<% if(session.getAttribute("UserId")==null){ %>
 	<form action="LoginProcess.jsp" method="post" name="loginForm">
-		아이디: <input type="text" name="user_id"/><br>
-		패스워드:<input type="password" name="user_pw"/><br>
+		아이디: <input type="text" name="user_id" required /><br>
+		패스워드:<input type="password" name="user_pw" required /><br>
 		<input type="submit" value="로그인"/>
 	</form>
 	<%}else{ %>
