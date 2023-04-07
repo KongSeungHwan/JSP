@@ -19,7 +19,7 @@ public class BoardDAO extends JDBConnect{
 	public int getTotalCount(Map<String,Object> param) {
 		String sql="select count(1) from board";
 		if(param.get("findWord")!=null){
-			sql +=" where"+param.get("findCol") +"like"+" '%"+param.get("findWord") +"%'";
+			sql +=" where "+param.get("findCol") +" like "+" '%"+param.get("findWord") +"%'";
 		}
 		int toCount;
 		try {
@@ -38,7 +38,7 @@ public class BoardDAO extends JDBConnect{
 		List<BoardDTO> bl = new Vector<>();
 		String sql="select * from board";
 		if(param.get("findWord")!=null){
-			sql +=" where"+param.get("findCol") +"like"+" '%"+param.get("findWord") +"%'";
+			sql +=" where "+param.get("findCol") +" like "+" '%"+param.get("findWord") +"%'";
 		}
 		sql+=" order by num desc";
 		BoardDTO board;
@@ -47,6 +47,42 @@ public class BoardDAO extends JDBConnect{
 		try {
 			stmt=con.createStatement();
 			rs=stmt.executeQuery(sql);
+			while(rs.next()) {
+				board=new BoardDTO();				
+				board.setSequenceNum(rs.getInt("num"));
+				board.setTitle(rs.getString("title"));
+				board.setId(rs.getString("id"));
+				board.setContent(rs.getString("content"));
+				board.setPostDate(rs.getDate("postdate"));
+				board.setVisitCount(rs.getInt("visitcount"));
+				bl.add(board);
+			}
+		} catch (SQLException e) {
+			System.out.println("DB연결실패 또는 sql구문 오류");
+			e.printStackTrace();
+		}
+		return bl;
+	}
+	public List<BoardDTO> getListPage(Map<String,Object> param){
+		List<BoardDTO> bl = new Vector<>();
+		 String sql="select * from("
+		            +"   select rownum pnum, s.* from("
+		            +"      select b.* from board b";   
+		            
+		      if(param.get("findWord")!=null) {
+		         sql += " where "+param.get("findCol")+" like '%"
+		               +param.get("findWord")+"%'";
+		      }
+		      sql += "    order by num desc "
+		            +"   )s"
+		            + ")"
+		            + "where pnum between ? and ?";
+				BoardDTO board;
+		try {
+			psmt=con.prepareStatement(sql);
+			psmt.setString(1, param.get("start").toString());
+			psmt.setString(2, param.get("end").toString());
+			rs=psmt.executeQuery();
 			while(rs.next()) {
 				board=new BoardDTO();				
 				board.setSequenceNum(rs.getInt("num"));
@@ -110,4 +146,26 @@ public class BoardDAO extends JDBConnect{
 			e.printStackTrace();
 		}
 	}
+	
+	public int deletePost(String num) {
+		String sql="delete from board where num= "+num;
+		try {
+			return con.prepareStatement(sql).executeUpdate();
+		}catch(SQLException e){
+			System.out.println("연결 실패또는 sql구문 오류");
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	public int updateEdit(BoardDTO dto) {
+		String sql="update board set title= '"+dto.getTitle()+"' ,content= '"+dto.getContent()+"' where num="+dto.getSequenceNum();
+		try {
+			return con.prepareStatement(sql).executeUpdate();
+		} catch (Exception e) {
+			System.out.println("연결 실패 또는 sql구문 오류");
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 }

@@ -5,18 +5,32 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="utils.PagingUtil" %>
 <%    
   BoardDAO dao = new BoardDAO(application);
 
-  String findCol=request.getParameter("findCol");
-  String findWord=request.getParameter("findWord");
-  Map<String,Object> param = new HashMap<String,Object>();
-  if(findWord!=null){
-     param.put("findCol",findCol);
-     param.put("findWord",findWord);
-  }
-  int totalCount = dao.getTotalCount(param);
-  List<BoardDTO> boardLists=dao.getList(param);
+  	String findCol=request.getParameter("findCol");
+  	String findWord=request.getParameter("findWord");
+  	String pageTemp=request.getParameter("pageNum");
+  	Map<String,Object> param = new HashMap<String,Object>();
+  	if(findWord!=null){
+     	param.put("findCol",findCol);
+     	param.put("findWord",findWord);
+  	}
+  	int totalCount = dao.getTotalCount(param);
+  
+  	int pageSize=Integer.parseInt(application.getInitParameter("PAGE_SIZE"));
+  	int blockSize=Integer.parseInt(application.getInitParameter("PAGING_BLOCK"));
+  	int totalPage = (int)(Math.ceil((double)(totalCount/pageSize)));
+  
+  	int pageNum = 1;
+  	if(pageTemp!=null && !pageTemp.equals(""))pageNum=Integer.parseInt(pageTemp);
+  	int start=(pageNum-1)*pageSize+1;
+  	int end=pageNum*pageSize;
+	param.put("start",start);
+	param.put("end",end);
+  	List<BoardDTO> boardLists=dao.getListPage(param);
+  	dao.close();
 %>
 <!DOCTYPE html>
 <html>
@@ -82,6 +96,13 @@
       }
    %>   
    </table><br>
+   <table border = "1">
+   		<tr align="center">
+   			<td>
+   				<%=PagingUtil.pagingBlock(totalCount, pageSize, blockSize, pageNum, request.getRequestURI()) %>
+   			</td>
+   		</tr>
+   </table>
    <div align="center">
    		<button type="button" onclick="location.href='Write.jsp';">글쓰기</button>
    </div>

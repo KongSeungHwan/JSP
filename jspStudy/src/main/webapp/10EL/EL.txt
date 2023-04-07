@@ -1,0 +1,12 @@
+EL
+Expression Language
+<%= %>
+변수나 메소드의 값을 출력 시 사용하는 스크립트 언어
+4가지 영역(pagem,request,session,application)
+내장 객체의 속성을 사용
+산술,비교,논리 연산 호출 사용
+자바에 정의된 메소드 호출 가능
+
+${속성}
+액션태그 JSTL 혼용
+동일 변수명이면 가장 작은 범위(scope) 변수를 호출

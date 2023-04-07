@@ -50,7 +50,6 @@
 					<button type="button" onclick="location.href='List.jsp'">목록보기</button>
 				</td>
 			</tr>
-			
 		</table>
 	</form>
 </body>
