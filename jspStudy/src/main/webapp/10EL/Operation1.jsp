@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page isELIgnored="false" contentType = "text/html; charset=UTF-8" %>
     <%@ page import="java.util.*" %>
 <%
 	int num1=100;
@@ -28,7 +29,7 @@
    num1-num2=${num1-num2}<br>
    num1*num2=${num1*num2}<br>
    num4/num3=${num4/num3}, ${num4 div num3}<br>
-   num4%num3=${num4%num3}, ${num4 mod num3}<br>
+   num4%num3=${num4%num3}, ${num4 % num3}<br>
    <h3>비교연산자</h3>
    num4 > num3 ${num4 gt num3}<br>
    num4 < num3 ${num4 lt num3}<br>
@@ -37,7 +38,7 @@
    num4 == num3 ${num4 eq num3}<br>
    num4 != num3 ${num4 ne num3}<br>
    <h3>논리 연산자</h3>
-   num3<=num4 && num3== num4 ${num3 le num4 and num3 eq num4}<br>
+   num3<=num4 && num3== num4 ${num3 < num4 and num3 == num4}<br>
    num3>=num4 || num3!= num4 ${num3 ge num4 or num3 ne num4}<br>
   <%
   	pageContext.setAttribute("num5", 7);

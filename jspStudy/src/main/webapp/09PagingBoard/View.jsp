@@ -4,8 +4,8 @@
 <%@ page import="membership.BoardDTO" %>
 <%@ include file="./LoginCheck.jsp" %>
 <%
-	String num=String.valueOf(request.getParameter("num"));
-	out.println(num);
+	String num=request.getParameter("num");
+	String pageNum=request.getParameter("pageNum");
 	BoardDAO dao = new BoardDAO(application);
 	dao.updateVisitCount(num);
 	BoardDTO dto= dao.getView(num);
@@ -65,7 +65,7 @@
 					}
 				%>
 					
-					<button type="button" onclick="location.href='List.jsp';">목록보기</button>
+					<button type="button" onclick="location.href='List.jsp?num=<%=num%>&pageNum=<%=pageNum%>';">목록보기</button>
 				</td>
 			</tr>
 		</table>

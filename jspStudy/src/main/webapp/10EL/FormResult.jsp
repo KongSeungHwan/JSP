@@ -4,10 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<%
 
-
-%>
 <title>EL 폼 전송 값</title>
 </head>
 <body>

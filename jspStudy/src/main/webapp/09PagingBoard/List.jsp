@@ -85,7 +85,7 @@
     	<tr>
     		<td><%=dto.getSequenceNum()%></td>
     		<td align="left">
-    		<a href="View.jsp?num=<%=dto.getSequenceNum()%>"><%=dto.getTitle() %></a>
+    		<a href="View.jsp?num=<%=dto.getSequenceNum()%>&pageNum=<%=pageNum%>"><%=dto.getTitle() %></a>
     		</td>
     		<td><%=dto.getId() %></td>
     		<td><%=dto.getVisitCount() %></td>
