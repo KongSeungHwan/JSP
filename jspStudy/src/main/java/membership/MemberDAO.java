@@ -9,7 +9,7 @@ public class MemberDAO extends JDBConnect{
 		super(driver,url,id,pw);
 	}
 	public MemberDTO getMember(String uid,String upw){
-		String sql="select *from member where id=? and pw=?";
+		String sql="select * from member where id=? and pw=?";
 		MemberDTO dto = new MemberDTO();
 		try {
 			psmt=con.prepareStatement(sql);

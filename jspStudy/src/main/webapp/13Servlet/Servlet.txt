@@ -1,0 +1,25 @@
+Servlet 작성 규칙!
+import javax.servlet
+httpServlet >> 추상 클래스 상속 필수
+doGet or doPost 오버라이딩 필수
+
+
+
+annotation @ >> 기능이 있는 주석 
+컴파일러에게 무슨 기능을 하는 지 알림
+
+Spring 필수 Annotation
+
+@Controller: Spring MVC에서 컨트롤러 클래스임을 나타냅니다.
+@RequestMapping: URL 요청과 컨트롤러의 메소드 매핑을 지정합니다.
+@Autowired: 자동으로 의존성을 주입합니다.
+@Component: Spring의 빈으로 등록합니다.
+@Service: 비즈니스 로직을 처리하는 서비스 빈을 등록합니다.
+@Repository: DAO(Data Access Object) 클래스를 Spring 빈으로 등록합니다.
+@Configuration: Spring 구성 클래스임을 나타냅니다.
+@Bean: Spring 구성 클래스에서 빈을 등록합니다.
+@Scope: 빈의 스코프를 정의합니다.
+@Transactional: 트랜잭션을 적용합니다.
+@Aspect: AOP(Aspect Oriented Programming)를 사용하여 관심사를 분리합니다.
+@Value: 프로퍼티 값을 주입합니다.
+@Profile: 어떤 프로파일에서 빈이 사용될지 설정합니다.

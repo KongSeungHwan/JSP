@@ -29,7 +29,7 @@
 		<input type="submit" value="학점 구하기">
 	</form>
 	<c:set var="avg" value="${(param.eng+param.math+param.sci)/3}"/>
-	평균: ${avg, '#.##0.00'}
+	평균: ${avg}
 	<c:choose>
 		<c:when test="${avg ge 90}">
 			수!
